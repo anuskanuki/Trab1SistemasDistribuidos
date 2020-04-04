@@ -67,7 +67,7 @@ public class AnelLogico {
 		                    if (!processosAtivos.isEmpty()) {
 		                        int index = new Random().nextInt (processosAtivos.size());
 		                        var processo = processosAtivos.get(index);
-		                        processo.enviarRequisicao();
+		                        processo.novaRequisicao();
 		                        System.out.println("Processo " + processo.getPid() + " realizou requisição");
 		                    }
 		                }

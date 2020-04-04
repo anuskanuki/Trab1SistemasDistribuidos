@@ -29,18 +29,19 @@ public class Processo {
         this.pid = pid;
     }
 
-    public boolean enviarRequisicao() {
+    public boolean novaRequisicao() {
         boolean resultadoRdequisicao = false;
         for (Processo p : Anel.processosAtivos) {
             if (p.isEhCoordenador()) {
                 resultadoRdequisicao = p.receberRequisicao(this.pid);
             }
         }
-        //sem coordenador:
+        
+        //Se não haver coordenador, nova eleição
         if (!resultadoRdequisicao) {
-            this.realizarEleicao();
+            this.novaEleicao();
         }
-        System.out.println("Fim da requisicao");
+        System.out.println("Requisição finalizada");
         return resultadoRdequisicao;
     }
 
@@ -49,8 +50,8 @@ public class Processo {
         return true;
     }
 
-    private void realizarEleicao() {
-        System.out.println("Processo de eleicao iniciado");
+    private void novaEleicao() {
+        System.out.println("Eleição iniciada");
         //consulta cada processo, adicionando o id de cada um em uma nova lista
 
         LinkedList<Integer> idProcessosConsultados = new LinkedList<>();
@@ -58,21 +59,22 @@ public class Processo {
             p.consultarProcesso(idProcessosConsultados);
         }
 
-        //dps percorre a lista em busca do maior ID
+        //Percorre a lista em busca do maior ID
         int idNovoCoordenador = this.getPid();
         for (Integer id : idProcessosConsultados) {
             if (id > idNovoCoordenador) {
                 idNovoCoordenador = id;
             }
         }
-        //dps atualiza o novo coordenador:
+        
+        
         boolean resultadoAtualizacao = false;
         resultadoAtualizacao = atualizarCoordenador(idNovoCoordenador);
 
         if (resultadoAtualizacao) {
-            System.out.println("Eleicao feita com sucesso. Novo coordenador: " + idNovoCoordenador);
+            System.out.println("Eleicao finalizada. Novo coordenador: " + idNovoCoordenador);
         } else {
-            System.out.println("A eleicao falhou. NÃ£o foi encontrado um novo coordenador.");
+            System.out.println("Eleicao finalizada. Sem novo coordenador.");
         }
     }
 
@@ -81,15 +83,11 @@ public class Processo {
     }
 
     private boolean atualizarCoordenador(int idNovoCoordenador) {
-        //garante que nao exista nenhum outro processo cadastrado como coordenador a nÃ£o ser o novo eleito
+        
+    	//Atualiza a propriedade EhCoordenador apenas para o novo eleito
         for (Processo p : Anel.processosAtivos) {
-            if (p.getPid() == idNovoCoordenador) {
-                p.setEhCoordenador(true);
-            } else {
-                p.setEhCoordenador(false);
-            }
+        	p.setEhCoordenador(p.getPid() == idNovoCoordenador);
         }
         return true;
     }
-
 }
