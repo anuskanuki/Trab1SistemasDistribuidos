@@ -18,7 +18,6 @@ public class Processo {
     public boolean isEhCoordenador() {
         return ehCoordenador;
     }
-
     public void setEhCoordenador(boolean ehCoordenador) {
         this.ehCoordenador = ehCoordenador;
     }
@@ -26,7 +25,6 @@ public class Processo {
     public int getPid() {
         return pid;
     }
-
     public void setPid(int pid) {
         this.pid = pid;
     }
@@ -38,7 +36,7 @@ public class Processo {
                 resultadoRdequisicao = p.receberRequisicao(this.pid);
             }
         }
-        //se n tem coordenador:
+        //sem coordenador:
         if (!resultadoRdequisicao) {
             this.realizarEleicao();
         }
