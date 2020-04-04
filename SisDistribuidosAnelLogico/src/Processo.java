@@ -30,38 +30,38 @@ public class Processo {
     }
 
     public boolean novaRequisicao() {
-        boolean resultadoRdequisicao = false;
-        for (Processo p : Anel.processosAtivos) {
+        boolean resultadoDeRequisicao = false;
+        for (Processo p : AnelLogico.ativos) {
             if (p.isEhCoordenador()) {
-                resultadoRdequisicao = p.receberRequisicao(this.pid);
+                resultadoDeRequisicao = p.recebeRequisicao(this.pid);
             }
         }
         
-        //Se não haver coordenador, nova eleição
-        if (!resultadoRdequisicao) {
+        //Se nï¿½o haver coordenador, nova eleiï¿½ï¿½o
+        if (!resultadoDeRequisicao) {
             this.novaEleicao();
         }
-        System.out.println("Requisição finalizada");
-        return resultadoRdequisicao;
+        System.out.println("Requisicao finalizada");
+        return resultadoDeRequisicao;
     }
 
-    private boolean receberRequisicao(int pidOrigemRequisicao) {
-        System.out.println("Requisicao do processo " + pidOrigemRequisicao + " recebida com sucesso");
+    private boolean recebeRequisicao(int pidOrigemRequisicao) {
+        System.out.println("Requisicao do processo " + pidOrigemRequisicao + " recebida com sucesso.");
         return true;
     }
 
     private void novaEleicao() {
-        System.out.println("Eleição iniciada");
+        System.out.println("Eleicao iniciada");
         //consulta cada processo, adicionando o id de cada um em uma nova lista
 
-        LinkedList<Integer> idProcessosConsultados = new LinkedList<>();
-        for (Processo p : Anel.processosAtivos) {
-            p.consultarProcesso(idProcessosConsultados);
+        LinkedList<Integer> idProcessosVerificados = new LinkedList<>();
+        for (Processo p : AnelLogico.ativos) {
+            p.consultarProcesso(idProcessosVerificados);
         }
 
         //Percorre a lista em busca do maior ID
         int idNovoCoordenador = this.getPid();
-        for (Integer id : idProcessosConsultados) {
+        for (Integer id : idProcessosVerificados) {
             if (id > idNovoCoordenador) {
                 idNovoCoordenador = id;
             }
@@ -85,7 +85,7 @@ public class Processo {
     private boolean atualizarCoordenador(int idNovoCoordenador) {
         
     	//Atualiza a propriedade EhCoordenador apenas para o novo eleito
-        for (Processo p : Anel.processosAtivos) {
+        for (Processo p : AnelLogico.ativos) {
         	p.setEhCoordenador(p.getPid() == idNovoCoordenador);
         }
         return true;
