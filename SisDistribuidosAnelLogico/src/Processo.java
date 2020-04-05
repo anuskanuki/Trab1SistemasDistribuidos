@@ -41,17 +41,17 @@ public class Processo {
         if (!resultadoDeRequisicao) {
             this.novaEleicao();
         }
-        System.out.println("Requisicao finalizada");
+        System.out.println("Requisição finalizada.");
         return resultadoDeRequisicao;
     }
 
     private boolean recebeRequisicao(int pidOrigemRequisicao) {
-        System.out.println("Requisicao do processo " + pidOrigemRequisicao + " recebida com sucesso.");
+        System.out.println("Requisição do processo " + pidOrigemRequisicao + " recebida com sucesso.");
         return true;
     }
 
     private void novaEleicao() {
-        System.out.println("Eleicao iniciada");
+        System.out.println("Eleição iniciada.");
         //consulta cada processo, adicionando o id de cada um em uma nova lista
 
         LinkedList<Integer> idProcessosVerificados = new LinkedList<>();
@@ -72,9 +72,9 @@ public class Processo {
         resultadoAtualizacao = atualizarCoordenador(idNovoCoordenador);
 
         if (resultadoAtualizacao) {
-            System.out.println("Eleicao finalizada. Novo coordenador: " + idNovoCoordenador);
+            System.out.println("Eleiçã finalizada. Novo coordenador é: " + idNovoCoordenador + ".");
         } else {
-            System.out.println("Eleicao finalizada. Sem novo coordenador.");
+            System.out.println("Eleição finalizada. Sem novo coordenador.");
         }
     }
 
