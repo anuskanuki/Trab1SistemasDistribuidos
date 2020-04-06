@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class AnelLogico {
 
-    private final int processoNovoTimer = 3000;
-    private final int eleicaoNovaTimer = 2500;
-    private final int inativaCoordenadorTimer = 10000;
-    private final int inativaProcessoTimer = 8000;
+    private final int processoNovoTimer = 30000;
+    private final int eleicaoNovaTimer = 25000;
+    private final int inativaCoordenadorTimer = 100000;
+    private final int inativaProcessoTimer = 80000;
 
     public static ArrayList<Processo> processosAtivos;
     private final Object lockToThread = new Object();
